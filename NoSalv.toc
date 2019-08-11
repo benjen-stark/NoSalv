@@ -1,0 +1,7 @@
+﻿## Interface: 11302
+## Title: |cFF0dea38NoSalv|r 
+## Author: benjen
+## Notes: Automatically removes salvation
+## Version: 0.0.1
+
+Main.lua
