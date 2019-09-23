@@ -8,15 +8,23 @@ function core:Init(event, name)
 			events:RegisterEvent("UNIT_AURA");
 		end
 	elseif (event == "UNIT_AURA") then
-		if (IsEquippedItemType("Shields")) then
+		if (IsEquippedItemType("Shields") or core.IsBearForm()) then
 			core.CancelSalvationBuff();
 		end
 	end
 end
 
+-- Returns true if the player is a druid and in bear form
+function core:IsBearForm()
+	local _, __, classIndex = UnitClass("player");
+	-- class 11 = druid (see https://wowwiki.fandom.com/wiki/API_UnitClass)
+	-- form 1 = bear (see https://wowwiki.fandom.com/wiki/API_GetShapeshiftForm)
+	return (classIndex == 11 and GetShapeshiftForm() == 1)
+end
+
 function core:CancelSalvationBuff()
-	local salv = "Blessing of Salvation"
-	local counter = 1
+	local salv = "Blessing of Salvation";
+	local counter = 1;
 	while UnitBuff("player", counter) do
 		local name = UnitBuff("player", counter)
 		if string.find(name, salv) then
@@ -25,7 +33,7 @@ function core:CancelSalvationBuff()
 			UIErrorsFrame:AddMessage("Salvation Removed");
 			return
 		end
-		counter = counter + 1
+		counter = counter + 1;
 	end
 end
 
