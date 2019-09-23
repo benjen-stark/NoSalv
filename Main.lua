@@ -8,7 +8,9 @@ function core:Init(event, name)
 			events:RegisterEvent("UNIT_AURA");
 		end
 	elseif (event == "UNIT_AURA") then
-		core.CancelSalvationBuff();
+		if (IsEquippedItemType("Shields")) then
+			core.CancelSalvationBuff();
+		end
 	end
 end
 
